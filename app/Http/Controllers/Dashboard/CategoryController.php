@@ -41,7 +41,7 @@ class CategoryController extends Controller
       
         
         Category::create($request->validated());
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('status', 'Categoria creada correctamente');
 
        
     }
@@ -78,7 +78,7 @@ class CategoryController extends Controller
         $category->update($request->validated());
 
         //return redirect()->route('post.index');
-        return to_route('category.index'); //hace lo mismo que la linea de arriba pero es mas corta la sintaixs (a partir de laravel 10)
+        return to_route('category.index')->with('status','Categoria Actualizada!'); //hace lo mismo que la linea de arriba pero es mas corta la sintaixs (a partir de laravel 10)
     }
 
     /**
@@ -87,8 +87,10 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //dd( "Eliminando el post: " . $post->title);
-
         $category->delete();
-        return to_route('category.index'); //hace lo mismo que la linea de arriba pero es mas corta la sintaixs (a partir de laravel 10)
+        return to_route('category.index')->with([
+            'status' => 'Categoria Eliminada!',
+            'deleted' => true
+        ]);
     }
 }

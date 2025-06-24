@@ -13,7 +13,19 @@
         <header>
             <h1>Curso de Laravel 12</h1>
             <nav class="text-white p-3">
-            ENCABEZADO...
+            Encabezado:
+             @if(session('s_usuario'))
+                    <small class="text-dark">
+                        <i class="bi bi-person"></i>
+                    {{ session('s_usuario') }}
+                    </small>  
+                @endif
+                @if(session('s_email'))
+                    <small class="text-dark ">
+                        <i class="bi bi-envelope"></i>
+                    {{ session('s_email') }}
+                    </small>  
+                @endif
             </nav>
         </header>
         

@@ -17,6 +17,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        //ejercicio 68. sesiones 
+        session([ 
+                's_usuario' => 'Jose Antonio Grijalva A.',
+                's_email' => 'antoniogrijalvaamaya@gmail.com'
+                ]); //para guardar una variable de sesion
+
         $listPosts = Post::with('category')->orderBy('created_at', 'desc')->paginate(5);
 
         return view('dashboard.post.index', compact('listPosts'));
@@ -44,7 +50,7 @@ class PostController extends Controller
 
          //validaciones opcion 2
         Post::create($request->validated());
-        return redirect()->route('post.index');
+        return redirect()->route('post.index')->with('status', 'Post creado correctamente');
 
 
 
@@ -124,7 +130,7 @@ class PostController extends Controller
         $post->update($data);
 
         //return redirect()->route('post.index');
-        return to_route('post.index'); //hace lo mismo que la linea de arriba pero es mas corta la sintaixs (a partir de laravel 10)
+        return to_route('post.index')->with('status',' "' . $post->title.'" Fue modificado!'); //hace lo mismo que la linea de arriba pero es mas corta la sintaixs (a partir de laravel 10)
     }
 
     /**
@@ -135,6 +141,8 @@ class PostController extends Controller
         //dd( "Eliminando el post: " . $post->title);
 
         $post->delete();
-        return to_route('post.index'); //hace lo mismo que la linea de arriba pero es mas corta la sintaixs (a partir de laravel 10)
+        return to_route('post.index')->with(['status' =>'POST "'.$post->title.'", ha sido Eliminado',
+        'deleted' => true,]
+        ); //hace lo mismo que la linea de arriba pero es mas corta la sintaixs (a partir de laravel 10)
     }
 }

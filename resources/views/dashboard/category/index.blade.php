@@ -8,6 +8,22 @@
 
 @section('morecontent')
     <h4 class="mt-3">Listado de Categorias</h4>
+        @if (session('status'))
+            @if (session('deleted'))
+                <div class="alert alert-danger">
+            @else
+                <div class="alert alert-success">
+            @endif
+                {{ session('status') }}
+          
+            </div>
+        @endif
+        {{-- @session('status')
+        <div class="alert alert-success py-5">
+            {{ $value }}
+        </div>
+        @endsession --}}
+
 
     <div class="container-fluid">
         <div class="table-responsive ">
